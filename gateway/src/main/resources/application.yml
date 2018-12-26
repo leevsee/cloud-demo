@@ -14,8 +14,35 @@ logging:
   level:
     com.leeves.gateway: debug
 
+## 匹配的路径是：/user/user/1和/user-service/user/1
+#zuul:
+#  routes:
+#    user-service: /user/**
+#  ignored-services:
+#    - consumer-demo
+
+# 匹配的路径是：/user/1，也就是忽略了/user，把/user/user/1简化成/user/1
 zuul:
+  # 添加前缀/api，这里相当于/api/user/1
+  prefix: /api
   routes:
-    user-service: /user/**
+    user-service:
+      path: /user/**
+      serviceId: user-service
+      strip-prefix: false
   ignored-services:
-    - com
+    - consumer-demo
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1500
+
+# ribbonTimeout = (ribbonReadTimeout + ribbonConnectTimeout) * (maxAutoRetries + 1) * (maxAutoRetriesNextServer + 1)
+# 这里的ribbonTimeout必须要比hystrix的timeoutInMilliseconds要多，才可以触发熔断
+ribbon:
+  ConnectTimeout: 500
+  ReadTimeout: 2000

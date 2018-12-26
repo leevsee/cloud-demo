@@ -1,5 +1,5 @@
 # cloud-demo
-spring cloud Finchley SR2 demo
+Spring Cloud Finchley SR2 Demo
 
 Hystrix
 
