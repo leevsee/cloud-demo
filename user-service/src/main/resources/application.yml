@@ -1,0 +1,39 @@
+server:
+  port: 8001
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8000/eureka/
+    # 获取注册列表
+    fetch-registry: true
+    # 获取注册列表间隔（秒）
+    registry-fetch-interval-seconds: 30
+  instance:
+    prefer-ip-address: true
+    # 心跳时间（秒）
+    lease-renewal-interval-in-seconds: 30
+    # 过期时长（秒）
+    lease-expiration-duration-in-seconds: 90
+
+# DataSource Config
+spring:
+  datasource:
+#    driver-class-name: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin:@192.168.8.8:1521:ORCL
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cloud_demo
+    username: root
+    password: root
+  application:
+    name: user-service
+
+
+
+mybatis-plus:
+  type-aliases-package: com.leeves.user.entity
+
+# Logger Config
+logging:
+  level:
+    com.leeves.datademo: debug

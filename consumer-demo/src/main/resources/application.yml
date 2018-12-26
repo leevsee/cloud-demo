@@ -1,0 +1,71 @@
+server:
+  port: 8012
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8000/eureka/
+
+# feign开启hystrix
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      USER-SERVICE:
+        connectTimeout: 1500
+        readTimeout: 1500
+        loggerLevel: basic
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1500
+      circuitBreaker:
+        requestVolumeThreshold: 6
+        sleepWindowInMilliseconds: 10000
+        errorThresholdPercentage: 40
+
+#ribbon:
+#  ReadTimeout: 3000
+#  ConnectTimeout: 3000
+
+#hystrix:
+#  command:
+#    ##全局方法使用default
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            ##超时时间
+#            timeoutInMilliseconds: 3000
+#      circuitBreaker:
+#        requestVolumeThreshold: 6
+#        sleepWindowInMilliseconds: 10
+
+# 负载均衡规则入口
+# {服务名称}.ribbon.NFLoadBalancerRuleClassName
+#USER-SERVICE:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalance.RandomRule
+
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 2000
+
+# Logger Config
+logging:
+  level:
+    com.leeves.consumer: debug
+spring:
+  application:
+    name: consumer-demo
+

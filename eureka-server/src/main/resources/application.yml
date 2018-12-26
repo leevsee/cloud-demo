@@ -1,0 +1,28 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: eurak-server
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+#    register-with-eureka: true
+#    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+#      defaultZone: http://${eureka.instance.hostname}:7999/eureka/
+#  server:
+#    wait-time-in-ms-when-sync-empty: 0
+  server:
+    # 服务剔除时间（毫秒）
+    eviction-interval-timer-in-ms: 60000
+    # 自我保护模式
+    enable-self-preservation: true
+
+# Logger Config
+logging:
+  level:
+    com.leeves.datademo: debug

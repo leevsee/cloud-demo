@@ -1,0 +1,21 @@
+server:
+  port: 8010
+
+spring:
+  application:
+    name: gateway-demo
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8000/eureka/
+
+logging:
+  level:
+    com.leeves.gateway: debug
+
+zuul:
+  routes:
+    user-service: /user/**
+  ignored-services:
+    - com
